@@ -3,6 +3,8 @@
 This repository demoes using a Vulcan Next frontend with a legacy Vulcan Meteor backend.
 This is targeted at existing Vulcan application that needs a progressive migration.
 
+/!\ Please use Vulcan Next directly if you are not an experimented user of Vulcan Meteor
+
 ## Start the Meteor server
 
 ```sh
@@ -21,6 +23,15 @@ git checkout demo/with-meteor-backend
 yarn run dev
 ```
 
+## Use the app
+
+The Next frontend will run on http://localhost:3000 ; the Meteor backend will run on http://localhost:3001. Note: you can still access the frontend part of your Meteor app as well! This is great if you want to keep the admin area in Meteor for instance, but move some pages to Next progressively.
+
+You can authenticate in the Vulcan Next app as usual, using the same credentials you would use in Meteor.
+
+Access the http://localhost:3000/meteor-demo to see the connection in action.
+
+
 ## How it works
 
 ### Frontend
@@ -33,8 +44,9 @@ Top priority of this demo is to connect a Vulcan Next frontend to an existing Me
 - useUser hook  will rely on Meteor useCurrentUser under the hood in `next-frontend/src/components/user/hooks.ts`
 - Changed `next-frontend/src/pages/login.tsx`, `next-frontend/src/pages/signup.tsx` and `next-frontend/src/components/layout/Footer.tsx` to use legacy hooks to connect to Meteor. NOTE: in a future iteration, we should abstract the Next.js version into hooks, to make this cleaner
 - Define Apollo CORS so we can include crendentials in `meteor-backed/settings.json`
-- TODO: cross-origin set-cookie are not working. We might need to update Vulcan to support this https://stackoverflow.com/questions/46288437/set-cookies-for-cross-origin-requests, https://stackoverflow.com/questions/1134290/cookies-on-localhost-with-explicit-domain/1188145#1188145
-In Vulcan, relevant file is: packages/vulcan-users/lib/server/mutations.js, it might need some additional headers/setup to work ok in production
+- Setup CORS cookies in the Next frontend in `next-frontend/packages/@vulcanjs/next-apollo/apolloClient.ts`
+- The `meteor-backend/packages/getting-started/lib/modules/vulcanResource/vulcanResource.js` file contains common parts, ie the schema. It is reused to build the Vulcan Meteor collection, as well as the equivalent Vulcan Next model (model is the new terms for collection, and it's way more powerful, but only available in Next at the moment).
+We cannot put this folder as the root, as Meteor cannot import file outside of the package. So it has to live in Meteor until we find a better approach for the `common` folder.
 
 
 ### Full-stack = progressively use Next as your backend
