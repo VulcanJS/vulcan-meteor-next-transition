@@ -21,6 +21,7 @@ cd ./meteor-backend
 # git checkout demo/with-next-frontend
 # Install if not yet done: 
 meteor npm install
+cp ./sample_settings.json ./settings.json
 meteor npm run start -- --port=3001
 # Remember to also read ./meteor-backend/README.md to continue the setup
 ```

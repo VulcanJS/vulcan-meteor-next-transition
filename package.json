@@ -1,0 +1,25 @@
+{
+  "name": "vulcan-meteor-next-transition",
+  "version": "0.0.1",
+  "description": "This repository demoes using a Vulcan Next frontend with a legacy Vulcan Meteor backend. This is targeted at existing Vulcan application that needs a progressive migration.",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "cd ./meteor-backend; meteor npm run start -- --port=3001",
+    "start:frontend": "cd ./next-frontend; open-cli http://localhost:3000/meteor-demo; yarn run dev",
+    "start": "concurrently \"yarn run start:backend\" \"yarn run start:frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VulcanJS/vulcan-meteor-next-transition.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VulcanJS/vulcan-meteor-next-transition/issues"
+  },
+  "homepage": "https://github.com/VulcanJS/vulcan-meteor-next-transition#readme",
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "open-cli": "^6.0.1"
+  }
+}
