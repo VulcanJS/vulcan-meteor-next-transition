@@ -1,0 +1,8 @@
+[submodule "Vulcan-Starter"]
+	path = meteor-backend
+	url = https://github.com/VulcanJS/Vulcan-Starter
+	branch = demo/with-next-frontend
+[submodule "vulcan-next"]
+	path = next-frontend
+	url = https://github.com/VulcanJS/vulcan-next
+	branch = demo/with-meteor-backend
