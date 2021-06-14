@@ -5,22 +5,36 @@ This is targeted at existing Vulcan application that needs a progressive migrati
 
 /!\ Please use Vulcan Next directly if you are not an experimented user of Vulcan Meteor
 
+## Install
+
+```sh
+git clone https://github.com/VulcanJS/vulcan-meteor-next-transition
+cd ./vulcan-next-transition
+git submodule update --init --recursive
+```
+
 ## Start the Meteor server
 
 ```sh
 cd ./meteor-backend
-# Install if not yet done: meteor npm install
-git checkout demo/with-next-frontend
+# For contributions, go to the right branch (submodules only gets you to a commit)
+# git checkout demo/with-next-frontend
+# Install if not yet done: 
+meteor npm install
 meteor npm run start -- --port=3001
+# Remember to also read ./meteor-backend/README.md to continue the setup
 ```
 
 ## Start the Next frontend
 
 ```sh
 cd ./next-frontend
-# Install if not yet done: yarn install
-git checkout demo/with-meteor-backend
+# For contributions, go to the right branch (submodules only gets you to a commit)
+# git checkout demo/with-meteor-backend
+# Install if not yet done: 
+yarn install
 yarn run dev
+# Remember to also read ./next-frontend/README.md to continue the setup
 ```
 
 ## Use the app
