@@ -70,3 +70,7 @@ In the long run, the goal is to transition the Meteor backend to Next as well, u
 
 - Next is configured to use the same Mongo database as Meteor locally. To get the URL of the local Meteor database, run `meteor mongo -U`. It's most probably something like this: `mongodb://127.0.0.1:3002/meteor`
 - TODO: in Next, configure Passport to authenticate users using the existing Mongo database from Meteor
+
+## Caveats
+
+- Check Vulcan NPM migration documentation to see the difference between Vulcan Meteor and Vulcan Next: https://github.com/VulcanJS/vulcan-npm/blob/devel/MIGRATING.md
