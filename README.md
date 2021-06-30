@@ -64,13 +64,13 @@ Top priority of this demo is to connect a Vulcan Next frontend to an existing Me
 We cannot put this folder as the root, as Meteor cannot import file outside of the package. So it has to live in Meteor until we find a better approach for the `common` folder.
 
 
-### Full-stack = progressively use Next as your backend
+## Full-stack = progressively use Next as your backend
 
 In the long run, the goal is to transition the Meteor backend to Next as well, using Next API routes.
 
 - Next is configured to use the same Mongo database as Meteor locally. To get the URL of the local Meteor database, run `meteor mongo -U`. It's most probably something like this: `mongodb://127.0.0.1:3002/meteor`
 - TODO: in Next, configure Passport to authenticate users using the existing Mongo database from Meteor
-
+- You can use both Next's GraphQL API and Meteor's GraphQL API using the [Connect to multiple graphql API in the frontend pattern described here](https://github.com/VulcanJS/vulcan-next/blob/demo/with-meteor-backend/src/content/docs/recipes.md)
 ## Caveats
 
 - Check Vulcan NPM migration documentation to see the difference between Vulcan Meteor and Vulcan Next: https://github.com/VulcanJS/vulcan-npm/blob/devel/MIGRATING.md
