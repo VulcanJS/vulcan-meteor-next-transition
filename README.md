@@ -63,6 +63,15 @@ Top priority of this demo is to connect a Vulcan Next frontend to an existing Me
 - The `meteor-backend/packages/getting-started/lib/modules/vulcanResource/vulcanResource.js` file contains common parts, ie the schema. It is reused to build the Vulcan Meteor collection, as well as the equivalent Vulcan Next model (model is the new terms for collection, and it's way more powerful, but only available in Next at the moment).
 We cannot put this folder as the root, as Meteor cannot import file outside of the package. So it has to live in Meteor until we find a better approach for the `common` folder.
 
+- Automated emails (eg for mail verification after signup) needs to point to the Next frontend, even if they are triggered by the Next.js backend. If you use those features, you'll need to add this piece of code in the Meteor app: 
+```js
+Meteor.startup(() => {
+    Accounts.urls.resetPassword = function(token) {
+    // where localhost:3000 is your Next.js app
+        return 'http://localhost:3000/reset-password/' + token;
+};
+```
+(TODO: we should add this feature in this repo and make it more configurable based on a Meteor setting)
 
 ## Full-stack = progressively use Next as your backend
 
