@@ -80,6 +80,10 @@ In the long run, the goal is to transition the Meteor backend to Next as well, u
 - Next is configured to use the same Mongo database as Meteor locally. To get the URL of the local Meteor database, run `meteor mongo -U`. It's most probably something like this: `mongodb://127.0.0.1:3002/meteor`
 - TODO: in Next, configure Passport to authenticate users using the existing Mongo database from Meteor
 - You can use both Next's GraphQL API and Meteor's GraphQL API using the [Connect to multiple graphql API in the frontend pattern described here](https://github.com/VulcanJS/vulcan-next/blob/demo/with-meteor-backend/src/content/docs/recipes.md)
+- TODO: See https://github.com/VulcanJS/vulcan-npm/issues/63. Meteor uses string `_id` as a default, while Mongo uses `ObjectId` type, so you need to do `ObjectId.str` to get the actual id or use a method like `isEqual` from lodash. **This means that objects created using Next backend might create bugs in the Meteor backend**. You need to avoid that, by doing creation operations only in Meteor, or to clearly separate things you manage in Next and things you manage in Meteor until you have fully transitionned.
+- If you plan to reuse your existing Meteor database in Next, this means you might need to parse all documents and change the "string" `_id` to an `ObjectId`.
+
+If you reuse your Mongo database within Vulcan Meteor, you might
 ## Caveats
 
 - Check Vulcan NPM migration documentation to see the difference between Vulcan Meteor and Vulcan Next: https://github.com/VulcanJS/vulcan-npm/blob/devel/MIGRATING.md
