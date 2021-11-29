@@ -83,10 +83,10 @@ In the long run, the goal is to transition the Meteor backend to Next as well, u
 - TODO: in Next, configure Passport to authenticate users using the existing Mongo database from Meteor.
 Vulcan Next now provides authentication.
 To update password:
-- In Vulcan Meteor, hashed password lives in `services.password.bcrypt`
-- You need to split this value like this: 22 characters after the 3rd $ is the `salt`. The rest is the `hash`. You can ignore the beginning.
-Example: `$2b$10$abcdefghijklmnopqrstuvWXYZ123456789` => `salt` is `abcdefghijklmnopqrstuv` and `hash` is `WXYZ12345678`
-- Store the `hash` in `hash` and `salt` in `salt` in the user document.
+    - In Vulcan Meteor, hashed password lives in `services.password.bcrypt`
+    - You need to split this value like this: 22 characters after the 3rd $ is the `salt`. The rest is the `hash`. You can ignore the beginning.
+    Example: `$2b$10$abcdefghijklmnopqrstuvWXYZ123456789` => `salt` is `abcdefghijklmnopqrstuv` and `hash` is `WXYZ12345678`
+    - Store the `hash` in `hash` and `salt` in `salt` in the user document.
 
 
 - You can use both Next's GraphQL API and Meteor's GraphQL API using the [Connect to multiple graphql API in the frontend pattern described here](https://github.com/VulcanJS/vulcan-next/blob/demo/with-meteor-backend/src/content/docs/recipes.md)
