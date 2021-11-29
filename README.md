@@ -73,12 +73,22 @@ Meteor.startup(() => {
 ```
 (TODO: we should add this feature in this repo and make it more configurable based on a Meteor setting)
 
+- Replace "Link" from "react-router-dom" by Link from Next.js https://nextjs.org/docs/api-reference/next/link
+
 ## Full-stack = progressively use Next as your backend
 
 In the long run, the goal is to transition the Meteor backend to Next as well, using Next API routes.
 
 - Next is configured to use the same Mongo database as Meteor locally. To get the URL of the local Meteor database, run `meteor mongo -U`. It's most probably something like this: `mongodb://127.0.0.1:3002/meteor`
-- TODO: in Next, configure Passport to authenticate users using the existing Mongo database from Meteor
+- TODO: in Next, configure Passport to authenticate users using the existing Mongo database from Meteor.
+Vulcan Next now provides authentication.
+To update password:
+- In Vulcan Meteor, hashed password lives in `services.password.bcrypt`
+- You need to split this value like this: 22 characters after the 3rd $ is the `salt`. The rest is the `hash`. You can ignore the beginning.
+Example: `$2b$10$abcdefghijklmnopqrstuvWXYZ123456789` => `salt` is `abcdefghijklmnopqrstuv` and `hash` is `WXYZ12345678`
+- Store the `hash` in `hash` and `salt` in `salt` in the user document.
+
+
 - You can use both Next's GraphQL API and Meteor's GraphQL API using the [Connect to multiple graphql API in the frontend pattern described here](https://github.com/VulcanJS/vulcan-next/blob/demo/with-meteor-backend/src/content/docs/recipes.md)
 - TODO: See https://github.com/VulcanJS/vulcan-npm/issues/63. Meteor uses string `_id` as a default, while Mongo uses `ObjectId` type, so you need to do `ObjectId.str` to get the actual id or use a method like `isEqual` from lodash. **This means that objects created using Next backend might create bugs in the Meteor backend**. You need to avoid that, by doing creation operations only in Meteor, or to clearly separate things you manage in Next and things you manage in Meteor until you have fully transitionned.
 - If you plan to reuse your existing Meteor database in Next, this means you might need to parse all documents and change the "string" `_id` to an `ObjectId`.
