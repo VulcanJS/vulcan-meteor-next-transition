@@ -91,8 +91,11 @@ To update password:
 
 - You can use both Next's GraphQL API and Meteor's GraphQL API using the [Connect to multiple graphql API in the frontend pattern described here](https://github.com/VulcanJS/vulcan-next/blob/demo/with-meteor-backend/src/content/docs/recipes.md)
 - TODO: See https://github.com/VulcanJS/vulcan-npm/issues/63. Meteor uses string `_id` as a default, while Mongo uses `ObjectId` type, so you need to do `ObjectId.str` to get the actual id or use a method like `isEqual` from lodash. **This means that objects created using Next backend might create bugs in the Meteor backend**. You need to avoid that, by doing creation operations only in Meteor, or to clearly separate things you manage in Next and things you manage in Meteor until you have fully transitionned.
+
 - If you plan to reuse your existing Meteor database in Next, this means you might need to parse all documents and change the "string" `_id` to an `ObjectId`, see https://forums.meteor.com/t/convert-meteor-mongo-string--id-into-objectid/19782.
 You can change the `_id` generation scheme (see https://docs.meteor.com/api/collections.html) to ObjectId in the Meteor app if you need a progressive transition.
+TODO: We still have an issue with `function convertIdAndTransformToJSON<TModel>`, it tries to access `document._id` for string conversion but it seems to be undefined when using a Meteor Mongo database.
+
 
 If you reuse your Mongo database within Vulcan Meteor, you might
 ## Caveats
