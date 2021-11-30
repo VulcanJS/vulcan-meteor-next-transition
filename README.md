@@ -95,6 +95,7 @@ To update password:
 - If you plan to reuse your existing Meteor database in Next, this means you might need to parse all documents and change the "string" `_id` to an `ObjectId`, see https://forums.meteor.com/t/convert-meteor-mongo-string--id-into-objectid/19782.
 You can change the `_id` generation scheme (see https://docs.meteor.com/api/collections.html) to ObjectId in the Meteor app if you need a progressive transition.
 TODO: We still have an issue with `function convertIdAndTransformToJSON<TModel>`, it tries to access `document._id` for string conversion but it seems to be undefined when using a Meteor Mongo database.
+**Current workaround:**: clone users mnually in Compass, it will recreate an id as an ObjectID https://docs.mongodb.com/compass/current/documents/clone/
 
 
 If you reuse your Mongo database within Vulcan Meteor, you might
