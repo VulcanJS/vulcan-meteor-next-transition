@@ -89,6 +89,34 @@ To update password:
     - Store the `hash` in `hash` and `salt` in `salt` in the user document.
     
  If it doesn't work, simply alter Vulcan Next password check method so it fall back to `services.password.bcrypt` to find the hashed password, see https://willvincent.com/2018/08/09/replicating-meteors-password-hashing-implementation/
+ 
+ Example code:
+ ```
+ export const checkPasswordForUser = (
+  user: Pick<UserTypeServer, "hash" | "salt">,
+  passwordToTest: string
+): boolean => {
+
+  //legacy meteor start
+  const userInput = crypto
+  .Hash('sha256')
+  .update(passwordToTest)
+  .digest('hex')
+
+  if(bcrypt.compareSync(userInput, `$2b$10$${user.salt}${user.hash}`)){
+    console.log('match')
+    const passwordsMatch = user.hash;
+    return passwordsMatch;
+  }//legacy meteor end
+
+  const hash = (crypto as any)
+    .pbkdf2Sync(userInput, user.salt, 1000, 64, "sha512")
+    .toString("hex");
+
+  const passwordsMatch = user.hash === hash;
+  return passwordsMatch;
+};
+```
 
 
 - You can use both Next's GraphQL API and Meteor's GraphQL API using the [Connect to multiple graphql API in the frontend pattern described here](https://github.com/VulcanJS/vulcan-next/blob/demo/with-meteor-backend/src/content/docs/recipes.md)
