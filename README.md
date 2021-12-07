@@ -127,7 +127,7 @@ Meteor uses string `_id` as a default, while Mongo uses `ObjectId` type, so you 
 You can change the `_id` generation scheme (see https://docs.meteor.com/api/collections.html) to ObjectId in the Meteor app if you need a progressive transition.
 TODO: We still have an issue with `function convertIdAndTransformToJSON<TModel>`, it tries to access `document._id` for string conversion but it seems to be undefined when using a Meteor Mongo database.
 **Current workaround:**: clone users mnually in Compass, it will recreate an id as an ObjectID https://docs.mongodb.com/compass/current/documents/clone/
-
+**Better workaround**: force mongoose to use string ids in the Vulcan Next model https://forums.meteor.com/t/using-mongoose-to-query-a-mongo-db-that-was-from-a-meteor-db/53789
 
 ## Caveats
 
