@@ -103,7 +103,7 @@ To update password:
 "createdAt":{"$date":"2021-12-29T11:43:29.772Z"},
 "displayName":"administrator",
 "slug":"administrator",
-// admin1234
+// admin123
  "services": {
         "password": {
             "bcrypt": "$2b$10$vxNlPs/AJdIYlypKCp7RVOiFNcc0I8ay6xj0TTXnA94rh5SSn.I8W"
