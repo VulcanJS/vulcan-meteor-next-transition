@@ -90,8 +90,27 @@ To update password:
     
  If it doesn't work, simply alter Vulcan Next password check method so it fall back to `services.password.bcrypt` to find the hashed password, see https://willvincent.com/2018/08/09/replicating-meteors-password-hashing-implementation/
  
- Example code:
+ Example structure of a user:
+ ```json
+ {
+ "_id":"RXSk3HJemC6haii64",
+ "username":"administrator",
+ "email":"admin@vulcanjs.org",
+ "isDummy":false,
+ "groups":["admins"],
+ "isAdmin":true,
+"emails":[{"address":"admin@vulcanjs.org"}],
+"createdAt":{"$date":"2021-12-29T11:43:29.772Z"},
+"displayName":"administrator",
+"slug":"administrator",
+// this part contains the password, it is populated by Meteor
+// services.password.bcrypt = XXX
+"services":{},
+"status":{"online":false}}
  ```
+ 
+ Example code:
+ ```ts
  export const checkPasswordForUser = (
   user: Pick<UserTypeServer, "hash" | "salt">,
   passwordToTest: string
@@ -123,11 +142,14 @@ To update password:
 - TODO: See https://github.com/VulcanJS/vulcan-npm/issues/63. 
 Meteor uses string `_id` as a default, while Mongo uses `ObjectId` type, so you need to do `ObjectId.str` to get the actual id or use a method like `isEqual` from lodash. **This means that objects created using Next backend might create bugs in the Meteor backend**. You need to avoid that, by doing creation operations only in Meteor, or to clearly separate things you manage in Next and things you manage in Meteor until you have fully transitionned.
 
+### Reuse the meteor database 
+
 - If you plan to reuse your existing Meteor database in Next, this means you might need to parse all documents and change the "string" `_id` to an `ObjectId`, see https://forums.meteor.com/t/convert-meteor-mongo-string--id-into-objectid/19782.
 You can change the `_id` generation scheme (see https://docs.meteor.com/api/collections.html) to ObjectId in the Meteor app if you need a progressive transition.
 TODO: We still have an issue with `function convertIdAndTransformToJSON<TModel>`, it tries to access `document._id` for string conversion but it seems to be undefined when using a Meteor Mongo database.
 **Current workaround:**: clone users mnually in Compass, it will recreate an id as an ObjectID https://docs.mongodb.com/compass/current/documents/clone/
 **Better workaround**: force mongoose to use string ids in the Vulcan Next model https://forums.meteor.com/t/using-mongoose-to-query-a-mongo-db-that-was-from-a-meteor-db/53789
+
 
 ## Caveats
 
